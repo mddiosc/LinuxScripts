@@ -7,15 +7,18 @@
 #
 # Plantilla de configuración de OpenSSL para la creacion de Peticiones de Firma de Certificados (CSR)
 # openssl req -new -config myserver.cnf -keyout myserver.key -out myserver.csr
+# Nombre de dominio (FQDN - Fully Qualified Domain Name):
 
+FQDN = tortillas.oaxaca.mx
+
+# Nombre de la organización (empresa solicitante)
+
+ORGNAME = Oaxaqueña de tortillas
 
 # Datos de configuración del certificado.
-#
 # default_bits Bits que se utilizaran para la generación de la clave (4096)
-#
- 
+# 
 [ req ]
-days = 365
 default_bits = 4096
 default_md = sha512
 prompt = no
@@ -24,12 +27,12 @@ distinguished_name = dn
 req_extensions = req_ext
 
 [ dn ]
-countryName = PAIS
-organizationName = ORGANIZACION
-commonName = DOMINIO
-emailAddress = EMAIL
-localityName = CIUDAD
-stateOrProvinceName = ESTADO
+C = MX
+O = $ORGNAME
+CN = $FQDN
+CN/emailAddress = tortilla@oaxaca.mx
+L = Oaxaca City
+stateOrProvinceName = Oaxaca
 
 [ req_ext ]
 subjectAltName = $ALTNAMES
