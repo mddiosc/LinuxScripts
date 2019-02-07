@@ -32,4 +32,5 @@ localityName = CIUDAD
 stateOrProvinceName = ESTADO
 
 [ req_ext ]
-subjectAltName = $ALTNAMES
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign

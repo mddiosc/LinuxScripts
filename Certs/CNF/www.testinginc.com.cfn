@@ -25,11 +25,12 @@ req_extensions = req_ext
 
 [ dn ]
 countryName = ES
-organizationName = Globalia
-commonName = www.aireuropa.com
-emailAddress = pepe@aireuropa.com
-localityName = Llucmajor
+organizationName = Testing Inc
+commonName = www.testinginc.com
+emailAddress = me@testinginc.com
+localityName = Palma
 stateOrProvinceName = Baleares
 
 [ req_ext ]
-subjectAltName = $ALTNAMES
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign
