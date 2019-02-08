@@ -1,25 +1,23 @@
-#
-# Plantilla de configuración de OpenSSL para la creacion de Autoridades de Certificacion (CA)
-# `man ca`
-# openssl genrsa -aes256 -out private/ca.key.pem 4096
-# openssl req -new -config myserver.cnf -keyout myserver.key -out myserver.csr
-
-# Seccion de configuración de la CA
-
+# OpenSSL root CA configuration file.
+# Copy to `/root/ca/openssl.cnf`.
 
 [ ca ]
+# `man ca`
+default_ca = CA_default
+
+[ CA_default ]
 # Directory and file locations.
-dir               = DIRBASECA
-new_certs_dir     = DIRBASENEWCERTS
-database          = DATABASE 
-certs             = CERTS
-crl_dir           = CRL
-serial            = SERIAL
-RANDFILE          = RANDOMFILE/.rand
+dir               = /root/ca    BASEDIR
+certs             = $dir/certs  CERTSDIR
+crl_dir           = $dir/crl    CRLDIR
+new_certs_dir     = $dir/newcerts NEWCERTSDIR
+database          = $dir/index.txt DATABASE
+serial            = $dir/serial  SERIAL
+RANDFILE          = $dir/private/.rand RANDOMFILE
 
 # The root key and root certificate.
-private_key       = PRIVATEKEY
-certificate       = CERTIFICATE
+private_key       = $dir/private/ca.key.pem
+certificate       = $dir/certs/ca.cert.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber

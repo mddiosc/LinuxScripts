@@ -4,6 +4,10 @@
 # https://medium.com/curiouscaloo/how-to-generate-a-wildcard-cert-csr-with-a-config-file-for-openssl-8a6613ab342f
 # 
 # https://www.ibm.com/support/knowledgecenter/en/SSB23S_1.1.0.13/gtps7/cfgcert.html
+# https://jamielinux.com/docs/openssl-certificate-authority/appendix/root-configuration-file.html
+# https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+# https://www.sslshopper.com/article-most-common-openssl-commands.html
+# https://stackoverflow.com/questions/4294689/how-to-generate-an-openssl-key-using-a-passphrase-from-the-command-line
 #
 # Plantilla de configuración de OpenSSL para la creacion de Peticiones de Firma de Certificados (CSR)
 # openssl req -new -config myserver.cnf -keyout myserver.key -out myserver.csr

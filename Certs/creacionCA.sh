@@ -14,7 +14,8 @@ echo $DIRBASE
 #           fqdn: Nombre completo del dominio para el que se generará el certifiado
 #           email: Correo electrónico de contacto del responsable del dominio.
 #
-##########################################################################################
+##############################################################################################
+
 
 function obtenerdatos() {
     ##########################################################################################
@@ -27,7 +28,21 @@ function obtenerdatos() {
     read -e -p "País [ES]: " -i "ES" pais
     read -p "Estado: " estado
     read -p "Ciudad: " ciudad
-    read -p "Organización: " organizacion
-    read -p "Nombre de dominio : " fqdn
+    read -p "Organización: " fqdn
     read -p "Direccion email: " email
 }
+
+function generarCAKey(){
+    ##########################################################################################
+    # Fase 1 de la generacion de la CA. Generación de la clave privada (private key) de la CA
+    ########################################################################################## 
+    
+    # Generamos una contraseña segura para la key y la almacenamos en un fichero,:
+    openssl rand -base64 32 > $DIRBASE/CA/${fqdn}pass.txt
+    chmod 0700 $DIRBASE/CA/${fqdn}pass.txt
+
+    #Generacion de la clave privada, encriptada mediante aea256 para securizarla al maximo con el mejor rendimiento
+    openssl genrsa -aes256 -passout file:$DIRBASE/CA/${fqdn}pass.txt -out $DIRBASE/CA/${fqdn}CA.key.pem
+}
+
+generarCAKey
