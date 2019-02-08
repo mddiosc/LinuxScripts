@@ -53,17 +53,35 @@ function preparaCAConf(){
      # por el del fichero de texto creado
     sed -i "s/DATABASE/${nombreca}.serial/g" $DIRBASE/CNF/${nombreca}.ca.cnf 
 
-    # Sustituimos el valor PRIVATEKEY para indicar el nombre de la clave privada, 
-    sed -i "s/PRIVATEKEY/${nombreca}.CA.key.pem/g" $DIRBASE/CNF/${nombreca}.ca.cnf 
+    # Sustituimos el valor PRIVATEKEY para indicar el nombre de la clave privada raiz, 
+    sed -i "s/PRIVATEKEY/${nombreca}.RootCA.key.pem/g" $DIRBASE/CNF/${nombreca}.ca.cnf 
 
     # Sustituimos el valor CERTIFICATE para indicar el nombre del certificado raiz generado.
-    sed -i "s/PRIVATEKEY/${nombreca}.CA.crt/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+    sed -i "s/CERTIFICATE/${nombreca}.RootCA.crt/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos el valor NOMBRECA para indicar el CN del certificado raiz generado.
+    sed -i "s/NOMBRECA/${nombreca}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos el pais de la plantilla (PAIS), por el pais especificado por el usuario
+    sed -i "s/PAIS/${pais}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos el estado (Comunidad Autonoma) de la plantilla (ESTADO), por la organización especificado por el usuario
+    sed -i "s/ESTADO/${estado}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos el la ciudad de la plantilla (CIUDAD), por la ciudad especificado por el usuario
+    sed -i "s/CIUDAD/${ciudad}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos la organizacion de la plantilla (ORGANIZACION), por la organización especificado por el usuario
+    sed -i "s/ORGANIZACION/${organizacion}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+
+    # Sustituimos el mail de contacto  de la plantilla (EMAIL), por el email  especificado por el usuario
+    sed -i "s/EMAIL/${email}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
 
 
 
 }
 
-function generarCAKey(){
+function generarRootCAKey(){
     ##########################################################################################
     # Fase 1 de la generacion de la CA. Generación de la clave privada (private key) de la CA
     ########################################################################################## 
@@ -75,6 +93,9 @@ function generarCAKey(){
     #Generacion de la clave privada, encriptada mediante aea256 para securizarla al maximo con el mejor rendimiento
     openssl genrsa -aes256 -passout file:$DIRBASE/CA/${nombreca}pass.txt -out $DIRBASE/CA/${nombreca}_CA.key.pem
 }
+
+# Ejecutamos los pasos en orden
+
 obtenerdatos
 preparaCAConf
-generarCAKey
+generarRootCAKey
