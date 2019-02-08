@@ -33,7 +33,7 @@ function obtenerdatos() {
 }
 
 function preparaCSRConf (){
-    cp $DIRBASE/PLT/csr.cnf $DIRBASE/CNF/$fqdn.cfn
+    cp $DIRBASE/PLT/csr.cnf $DIRBASE/CNF/$fqdn.csr.cnf
     ##########################################################################################
     # Preparación del fichero de configuracion que será utilizado para generar el CSR
     ##########################################################################################
@@ -47,22 +47,22 @@ function preparaCSRConf (){
     # de variables.
     
     # Sustituimos el FQDN de la plantilla (DOMINIO), por el FQDN especificado por el usuario
-    sed -i "s/DOMINIO/${fqdn}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/DOMINIO/${fqdn}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 
     # Sustituimos el pais de la plantilla (PAIS), por el pais especificado por el usuario
-    sed -i "s/PAIS/${pais}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/PAIS/${pais}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 
     # Sustituimos el estado (Comunidad Autonoma) de la plantilla (ESTADO), por la organización especificado por el usuario
-    sed -i "s/ESTADO/${estado}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/ESTADO/${estado}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 
     # Sustituimos el la ciudad de la plantilla (CIUDAD), por la ciudad especificado por el usuario
-    sed -i "s/CIUDAD/${ciudad}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/CIUDAD/${ciudad}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 
     # Sustituimos la organizacion de la plantilla (ORGANIZACION), por la organización especificado por el usuario
-    sed -i "s/ORGANIZACION/${organizacion}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/ORGANIZACION/${organizacion}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 
     # Sustituimos el mail de contacto  de la plantilla (EMAIL), por el email  especificado por el usuario
-    sed -i "s/EMAIL/${email}/g" $DIRBASE/CNF/$fqdn.cfn
+    sed -i "s/EMAIL/${email}/g" $DIRBASE/CNF/$fqdn.csr.cnf
 }
 
 function generaKey_CSR(){
@@ -71,7 +71,7 @@ function generaKey_CSR(){
     ##########################################################################################
 
     # Utilizando el comando openssl para generar la key y el CSR
-     openssl req -new -config $DIRBASE/CNF/${fqdn}.cfn -keyout $DIRBASE/KEY/${fqdn}.key -out $DIRBASE/CSR/${fqdn}.csr
+     openssl req -new -config $DIRBASE/CNF/${fqdn}.csr.cnf -keyout $DIRBASE/KEY/${fqdn}.key -out $DIRBASE/CSR/${fqdn}.csr
 
     # Protegemos la key cambiando los permisos de forma que solo quien lo genera pueda acceder o modificarla
     chmod 0600 $DIRBASE/KEY/${fqdn}.key

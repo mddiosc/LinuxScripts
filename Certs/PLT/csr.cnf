@@ -11,12 +11,13 @@
 
 # Datos de configuración del certificado.
 #
-# default_bits Bits que se utilizaran para la generación de la clave (4096)
+# default_bits Bits que se utilizaran para la generación de la clave (2048). Aunque se podrian utilizar claves de 4096 esto ha demostrado
+# que induce una carga importante de CPU en el cliente a la hora de establecer la conexion.
 #
  
 [ req ]
 days = 365
-default_bits = 4096
+default_bits = 2048
 default_md = sha512
 prompt = no
 encrypt_key = no

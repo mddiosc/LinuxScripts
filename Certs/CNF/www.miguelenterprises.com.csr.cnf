@@ -11,12 +11,13 @@
 
 # Datos de configuración del certificado.
 #
-# default_bits Bits que se utilizaran para la generación de la clave (4096)
+# default_bits Bits que se utilizaran para la generación de la clave (2048). Aunque se podrian utilizar claves de 4096 esto ha demostrado
+# que induce una carga importante de CPU en el cliente a la hora de establecer la conexion.
 #
  
 [ req ]
 days = 365
-default_bits = 4096
+default_bits = 2048
 default_md = sha512
 prompt = no
 encrypt_key = no
@@ -25,9 +26,9 @@ req_extensions = req_ext
 
 [ dn ]
 countryName = ES
-organizationName = Testing Inc
-commonName = www.testinginc.com
-emailAddress = me@testinginc.com
+organizationName = MiguelCO
+commonName = www.miguelenterprises.com
+emailAddress = miguel@miguelenterprises.com
 localityName = Palma
 stateOrProvinceName = Baleares
 
