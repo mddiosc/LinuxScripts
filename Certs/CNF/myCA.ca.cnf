@@ -11,14 +11,14 @@
 # Directory and file locations.
 dir               = DIRBASE
 new_certs_dir     = $dir/CERT
-database          = DATABASE
+database          = myCA.db.txt
 certs             = $dir/CERT
 crl_dir           = $dir/CRL
 serial            = SERIAL
 RANDFILE          = $dir/.rand
 
 # The root key and root certificate.
-private_key       = PRIVATEKEY
+private_key       = myCA.CA.key.pem
 certificate       = CERTIFICATE
 
 # For certificate revocation lists.
