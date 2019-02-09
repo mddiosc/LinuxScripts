@@ -9,34 +9,30 @@
 
 [ ca ]
 # Directory and file locations.
-dir               = DIRBASE
-new_certs_dir     = $dir/CERT
-database          = DATABASE
-certs             = $dir/CERT
-crl_dir           = $dir/CRL
+dir               = BASEDIR
+new_certs_dir     = BASEDIR/CERT
+database          = BASEDIR/CA/DATABASE
+certs             = BASEDIR/CERT
+crl_dir           = BASEDIR/CRL
 serial            = SERIAL
-RANDFILE          = $dir/.rand
+RANDFILE          = BASEDIR/.rand
 
 # Certificado Raiz y Clave privada
 private_key       = PRIVATEKEY
 certificate       = CERTIFICATE
 # Ajustes por omision
 default_md        = sha256
-default_days      = 3750
+default_days      = 3650
+
+[ req ]
+default_bits = 4096
+default_keyfile = BASEDIR/CA/PRIVATEKEY
 distinguished_name  = req_distinguished_name
-policy            = policy
+string__mask = utf8only
+prompt = no
+req_extensions = v3_ca
 
-[ policy ]
-countryName             = optional
-stateOrProvinceName     = optional
-localityName            = optional
-organizationName        = optional
-organizationalUnitName  = optional
-commonName              = supplied
-emailAddress            = optional
-
-
-# Extension to add when the -x509 option is used.
+# Extensiones x509
 x509_extensions     = v3_ca
 
 [ v3_ca ]
@@ -47,9 +43,11 @@ basicConstraints = critical, CA:true
 keyUsage = critical, digitalSignature, cRLSign, keyCertSign
 
 [ req_distinguished_name ]
-countryName = PAIS
-organizationName = ORGANIZACION
-commonName = NOMBRECA
+
+C = PAIS
+ST = ESTADO
+L = CIUDAD
+O = ORGANIZACION
+OU = ORGANIZACION
+CN = NOMBRECA
 emailAddress = EMAIL
-localityName = CIUDAD
-stateOrProvinceName = ESTADO

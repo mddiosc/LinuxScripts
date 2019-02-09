@@ -71,7 +71,7 @@ function generaKey_CSR(){
     ##########################################################################################
 
     # Utilizando el comando openssl para generar la key y el CSR
-     openssl req -new -config $DIRBASE/CNF/${fqdn}.csr.cnf -keyout $DIRBASE/KEY/${fqdn}.key -out $DIRBASE/CSR/${fqdn}.csr
+   openssl req -new -config $DIRBASE/CNF/${fqdn}.csr.cnf -keyout $DIRBASE/KEY/${fqdn}.key -out $DIRBASE/CSR/${fqdn}.csr
 
     # Protegemos la key cambiando los permisos de forma que solo quien lo genera pueda acceder o modificarla
     chmod 0600 $DIRBASE/KEY/${fqdn}.key

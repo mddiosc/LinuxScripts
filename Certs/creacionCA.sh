@@ -24,12 +24,20 @@ function obtenerdatos() {
     # Establecer el pais por defecto en ES (España), y solicita los datos necesarios 
     # para el certificado.
     #
+    clear
+    echo "Por favor introduzca los datos que se solicitan a continuación"
+    echo "Serán utilizados para la identificación de su Entidad Autoritativa de Certificacion (CA)"
+    echo 
+    echo 
     pais="ES"
-    read -e -p "País [ES]: " -i "ES" pais
+    read -p "País: "  pais
     read -p "Estado: " estado
     read -p "Ciudad: " ciudad
+    read -p "Organizacion: " organizacion
     read -p "Nombre CA: " nombreca
     read -p "Direccion email: " email
+    echo
+    echo
 }
 function preparaCAConf(){
     # Copiamos el fichero de configuracion para su preparación usando en nombre de la CA introducido
@@ -39,11 +47,11 @@ function preparaCAConf(){
     touch $DIRBASE/CA/${nombreca}.db.txt
 
     # Creamos el fichero que gestiona los numeros de serie y lo inicializamos en 1000
-    echo 1000 > $DIRBASE/CA/${nombreca}.serial
+    #echo 1000 > $DIRBASE/CA/${nombreca}.serial
 
     # Sustituimos el nombre del directorio base DIRBASE de la plantilla copiada, para establecer 
     #la ubicacion de los ficheros
-    sed -i "s/DIRBASE/${DIRBASE}/g" $DIRBASE/CNF/${nombreca}.ca.cnf
+    sed -i "s=BASEDIR=${DIRBASE}=g" $DIRBASE/CNF/${nombreca}.ca.cnf
 
     # Sustituimos el nombre del fichero de la base de datos  de la plantilla (DATABASE), 
     # por el del fichero de texto creado
@@ -86,16 +94,38 @@ function generarRootCAKey(){
     # Fase 1 de la generacion de la CA. Generación de la clave privada (private key) de la CA
     ########################################################################################## 
     
-    # Generamos una contraseña segura para la key y la almacenamos en un fichero,:
+    # Generamos una contraseña segura para la key y la almacenamos en un fichero:
+    echo "Generando Contraseña para la clave privada raiz de CA ..."
     openssl rand -base64 32 > $DIRBASE/CA/${nombreca}pass.txt
+    # Securizamos el fichero con la contraseña para que no pueda ser leido/cambiado por otro usuario que no sea el creador.
     chmod 0700 $DIRBASE/CA/${nombreca}pass.txt
+    sleep 2
+
 
     #Generacion de la clave privada, encriptada mediante aea256 para securizarla al maximo con el mejor rendimiento
-    openssl genrsa -aes256 -passout file:$DIRBASE/CA/${nombreca}pass.txt -out $DIRBASE/CA/${nombreca}_CA.key.pem
+    # La clave privada se genera utilizando la contraseña almacenada en el fichero generado en el paso anterior.
+    openssl genrsa -aes256 -passout file:$DIRBASE/CA/${nombreca}pass.txt -out $DIRBASE/CA/${nombreca}.RootCA.key 4096
 }
 
 function generarRootCACert(){
-    openssl req -config ${DIRBASE}/CNF/${nombreca}.ca.cnf -key ${DIRBASE}/CA/${nombreca}_CA.key.pem -passin file:${DIRBASE}/CA/${nombraca}pass.txt -new -x509 -subj "/C=${pais}/ST=${estado}/L=${ciudad}/O=${organizacion}/CN=${nombreca}"
+   ##########################################################################################
+   # Fase 2 de la generacion de la CA. Generacion del certificado Raiz de la entidad emisora (Root CA Certificate)
+   ########################################################################################## 
+   # 
+   # Por defecto se genera para un plazo de 10 años (3650 dias)
+   # Fichero de configuracion por defecto $nombreca.ca.cnf
+   # Fichero de Clave Privada (generada por la funcion generarRootCAKey): $nombreca.RootCA.key
+   # Fichero de Contraseña de la llave privada ${nombreca}pass.txt
+   # Fichero de salida (certificado emitido): $nombreca.RootCA.crt
+   # Datos de identificacion del certificado: /C=${pais}/ST=${estado}/L=${ciudad}/O=${organizacion}/OU=${organizacion}/CN=${nombreca}
+   # Realizacion del request (peticion del certificado) utilizando openssl.
+    echo "Generando el certificado raiz de la CA..."
+    sleep 2
+    openssl req -config ${DIRBASE}/CNF/${nombreca}.ca.cnf -key ${DIRBASE}/CA/${nombreca}.RootCA.key -sha256 -passin file:${DIRBASE}/CA/${nombreca}pass.txt -new -out ${DIRBASE}/CA/${nombreca}.RootCA.crt -x509 -days 3650
+    echo "Securizando ..."
+    chmod 0400 ${DIRBASE}/CA/${nombreca}.RootCA.crt
+    sleep 2
+    echo "Certificado generado."
 }
 
 # Ejecutamos los pasos en orden
@@ -103,3 +133,4 @@ function generarRootCACert(){
 obtenerdatos
 preparaCAConf
 generarRootCAKey
+generarRootCACert
