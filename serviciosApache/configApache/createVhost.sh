@@ -12,17 +12,13 @@ echo $DIRBASE
 #           adminEmail: Dirección de e-mail del responsable del dominio
 #           usuario : Usuario que sera añadido al sistema operativo para gestionar el contenido.
 #           contrasenya : Contraseña generada automáticamente que es asignada al usuario
-#           fqdn: Nombre completo del dominio para el que se generará el certifiado
-#           email: Correo electrónico de contacto del responsable del dominio.
 #
 ##########################################################################################
 
 function obtenerDatosDominio() {
     ##########################################################################################
-    # Esta funcion obtiene los datos del certificado a emitir
+    # Esta funcion obtiene los datos del dominio a configurar en Apache.
     ##########################################################################################
-    # Establecer el pais por defecto en ES (España), y solicita los datos necesarios 
-    # para el certificado.
     #
     clear
     echo "Por favor introduzca los datos que se solicitan a continuación"
@@ -35,6 +31,10 @@ function obtenerDatosDominio() {
 }
 
 function preparaPlantilla(){
+    ##########################################################################################
+    # Esta función prepara el fichero de configuracion del dominio que será instalado en apache.
+    ##########################################################################################
+    #
     # Copiamos la plantilla base que sera editada e instalada en apache.
     cat PLT/000-default.conf | grep -v "#" > $DIRBASE/CONF/${nombreDominio}.conf
 
@@ -53,16 +53,18 @@ function preparaPlantilla(){
 }
 
 function prepararEntorno(){
+    ##########################################################################################
+    # Esta funcion realiza los cambios necesarios a nivel sistema operativo.
+    ##########################################################################################
+    #
     # Configuramos y creamos el directorio raiz del dominio de Apache
-    # y ponemos un fichero indice de prueba. Dado que el directorio pertenece al usuario estamos obligados
-    # a hacer un doble sudo para poder crearlo.
+    # y ponemos un fichero indice de prueba.
 
    
-    # Creamos el usuario en el sistema, y le asignamos como home el Document Root.
     # Generamos la contraseña para el usuario con 8 caracteres de longitud:
     contrasenya=`openssl rand -base64 6`
 
-    # añadimos al usuario al sistema
+   # Creamos el usuario en el sistema
     sudo useradd -m -c "Usuario SFTP del dominio"${nombreDominio}  ${usuario}
 
     # cambiamos la contraseña del usuario segun la que ha sido generada anteriormente
@@ -75,20 +77,29 @@ function prepararEntorno(){
     # Modificamos los permisos del directorio root del dominio.
     sudo chown -R ${usuario}:${usuario} /var/www/${nombreDominio}
 
-    # Inyectamos un fichero index.html como landing page
+    # Creamos un fichero index.html como landing page para el dominio configurado
     echo "<html><head></head><body><h1> Bienvenido al dominio ${nombreDominio}</h1></body></html>" > $DIRBASE/CONF/index.html
 
 
     # creamos un enlace simbólico en el home del usuario que apunte al DocumentRoot de su dominio
     sudo ln -s /var/www/${nombreDominio} /home/${usuario}/${nombreDominio}
     sudo chown -R ${usuario}:${usuario} /home/${usuario}/${nombreDominio}
+
+    # Copiamos el indice de muestra en el enlace del document root del dominio.
     sudo cp $DIRBASE/CONF/index.html /home/${usuario}/${nombreDominio}/index.html
 
 }
 function  activaDominio(){
+    # Copiamos el fichero de configuracion generado al directorio de sitios habilitados de apache (sites enabled)
     sudo cp $DIRBASE/CONF/${nombreDominio}.conf /etc/apache2/sites-enabled
+
+    # Reiniciamos Apache
     sudo systemctl restart apache2
+
+    # Añadimos el dominio a la ip localhost (127.0.0.1) para acceder por nombre 
     sudo sed -i "2i127.0.0.1  ${nombreDominio}" /etc/hosts
+
+    # Informamos al usuario del resultado del proceso.
     echo "El usuario de acceso es "${usuario}
     echo "Su contraseña es "${contrasenya}
     echo "Puede validar su dominio conectandose a http://"${nombreDominio}
