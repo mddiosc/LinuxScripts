@@ -95,7 +95,7 @@ function generarRootCAKey(){
 }
 
 function generarRootCACert(){
-    openssl req -config CNF/mycatest.ca.cnf -key CA/mycatest_CA.key.pem -passin file:CA/mycatestpass.txt -new -x509 -subj "/C=US/ST=Utah/L=Provo/O=ACME Service/CN=PATATA"
+    openssl req -config ${DIRBASE}/CNF/${nombreca}.ca.cnf -key ${DIRBASE}/CA/${nombreca}_CA.key.pem -passin file:${DIRBASE}/CA/${nombraca}pass.txt -new -x509 -subj "/C=${pais}/ST=${estado}/L=${ciudad}/O=${organizacion}/CN=${nombreca}"
 }
 
 # Ejecutamos los pasos en orden
