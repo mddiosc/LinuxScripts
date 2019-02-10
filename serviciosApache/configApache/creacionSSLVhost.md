@@ -21,7 +21,10 @@ Lo cual activa todos los módulos necesarios para servir contenido via SSL (HTTP
 
 Una vez habilitado el ssl y creado el Virtual Host, se puede validar que ha sido habilitado correctamente utilizando el comando apachectl -S, el cual nos informa de los sitios, ip y puertos habilitados por apache.
 
-`sudo apachectl -S`
+``` bash
+sudo apachectl -S
+```
+
 
 
 
