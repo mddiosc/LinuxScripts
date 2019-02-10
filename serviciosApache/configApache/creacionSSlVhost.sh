@@ -11,6 +11,21 @@ echo $DIRBASE
 # Variables:
 #           nombreDominio: Nombre del Dominio que será configurado.
 #           adminEmail: Dirección de e-mail del responsable del dominio
+# Comandos Utilizados:
+#           echo - Despliega una línea de textl
+#           read - lee una linea desde stdin y la asigna a la variable especificada.
+#               Sintaxis utilizada: read -p "prompt" NAME
+#               -p Despliega el prompt indicado por la cadena entre comillas
+#               NAME : Nombre de variable que almacenara la entrada del usuario.  
+#           cat - concatena ficheros y despliega en la salida estándar. En este caso lo utilizamos
+#               para redirigir el contenido de un fichero hacia otro utilizando la redireccion >
+#               Sintaxis utilizada : cat FICHERO
+#           grep - Imprime lineas que cumplan o no un patron según lo especificado por el modificador
+#               Sintaxis utilizada : grep -v VALOR
+#               selecciona todas las lineas proporcionadas por CAT excepto aquellas que contengan VALOR
+#           sed - Editor en linea (stream) para filtrar y transformar texto. Utilizado para realizar
+#               transformaciones de texto básicas a partir de una entrada.
+#               Sintaxis utilizada: sed -i "s<DELIMITADOR>Cadena a sustituir (RegEX)<DELIMITADOR> Nu"      
 #
 ##########################################################################################
 
