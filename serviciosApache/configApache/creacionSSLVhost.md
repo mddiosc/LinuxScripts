@@ -19,6 +19,10 @@ Para habilitar el modulo de SSL utilizando a2enmod (Apache2 Enable Module)
 
 Lo cual activa todos los módulos necesarios para servir contenido via SSL (HTTPS)
 
+Una vez habilitado el ssl y creado el Virtual Host, se puede validar que ha sido habilitado correctamente utilizando el comando apachectl -S, el cual nos informa de los sitios, ip y puertos habilitados por apache.
+
+`sudo apachectl -S`
+
 
 
 Comandos utilizados:
