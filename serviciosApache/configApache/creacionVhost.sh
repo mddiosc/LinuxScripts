@@ -1,5 +1,8 @@
 export DIRBASE=$PWD
-echo $DIRBASE
+clear
+echo "Validando Usuario"
+sudo echo "Usuario Validado"
+sleep 3
 #########################################################################################
 #
 # Configuracion de un host virtual de apache2 server  a partir de una plantilla 
@@ -12,6 +15,22 @@ echo $DIRBASE
 #           adminEmail: Dirección de e-mail del responsable del dominio
 #           usuario : Usuario que sera añadido al sistema operativo para gestionar el contenido.
 #           contrasenya : Contraseña generada automáticamente que es asignada al usuario
+#
+# Comandos Utilizados:
+#           echo - Despliega una línea de textl
+#           read - lee una linea desde stdin y la asigna a la variable especificada.
+#               Sintaxis utilizada: read -p "prompt" NAME
+#               -p Despliega el prompt indicado por la cadena entre comillas
+#               NAME : Nombre de variable que almacenara la entrada del usuario.  
+#           cat - concatena ficheros y despliega en la salida estándar. En este caso lo utilizamos
+#               para redirigir el contenido de un fichero hacia otro utilizando la redireccion >
+#               Sintaxis utilizada : cat FICHERO
+#           grep - Imprime lineas que cumplan o no un patron según lo especificado por el modificador
+#               Sintaxis utilizada : grep -v VALOR
+#               selecciona todas las lineas proporcionadas por CAT excepto aquellas que contengan VALOR
+#           sed - Editor en linea (stream) para filtrar y transformar texto. Utilizado para realizar
+#               transformaciones de texto básicas a partir de una entrada.
+#               Sintaxis utilizada: sed -i "s<DELIMITADOR>Cadena a sustituir (RegEX)<DELIMITADOR> Nu"      
 #
 ##########################################################################################
 
@@ -36,7 +55,7 @@ function preparaPlantilla(){
     ##########################################################################################
     #
     # Copiamos la plantilla base que sera editada e instalada en apache.
-    cat PLT/000-default.conf | grep -v "#" > $DIRBASE/CONF/${nombreDominio}.conf
+    cat $DIRBASE/PLT/000-default.conf | grep -v "#" > $DIRBASE/CONF/${nombreDominio}.conf
 
     # Configuramos el ServerName del dominio de Apache en la plantilla
     sed -i "s/ServerName.*/ServerName ${nombreDominio}/g" $DIRBASE/CONF/${nombreDominio}.conf
@@ -56,16 +75,12 @@ function prepararEntorno(){
     ##########################################################################################
     # Esta funcion realiza los cambios necesarios a nivel sistema operativo.
     ##########################################################################################
-    #
-    # Configuramos y creamos el directorio raiz del dominio de Apache
-    # y ponemos un fichero indice de prueba.
 
-   
     # Generamos la contraseña para el usuario con 8 caracteres de longitud:
     contrasenya=`openssl rand -base64 6`
 
    # Creamos el usuario en el sistema
-    sudo useradd -m -c "Usuario SFTP del dominio"${nombreDominio}  ${usuario}
+    sudo useradd -m -c "Usuario SFTP del dominio "${nombreDominio}  ${usuario}
 
     # cambiamos la contraseña del usuario segun la que ha sido generada anteriormente
     echo ${usuario}:${contrasenya} | sudo chpasswd 
@@ -77,7 +92,7 @@ function prepararEntorno(){
     # Modificamos los permisos del directorio root del dominio.
     sudo chown -R ${usuario}:${usuario} /var/www/${nombreDominio}
 
-    # Creamos un fichero index.html como landing page para el dominio configurado
+    # Creamos un fichero index.html como pagina de inicio para el dominio configurado
     echo "<html><head></head><body><h1> Bienvenido al dominio ${nombreDominio}</h1></body></html>" > $DIRBASE/CONF/index.html
 
 
@@ -90,8 +105,11 @@ function prepararEntorno(){
 
 }
 function  activaDominio(){
-    # Copiamos el fichero de configuracion generado al directorio de sitios habilitados de apache (sites enabled)
-    sudo cp $DIRBASE/CONF/${nombreDominio}.conf /etc/apache2/sites-enabled
+    # Copiamos el fichero de configuracion generado al directorio de sitios disponibles de apache (sites available)
+    sudo cp $DIRBASE/CONF/${nombreDominio}.conf /etc/apache2/sites-available
+
+    # A continuacion activamos el sitio en apache
+    sudo a2ensite ${nombreDominio}
 
     # Reiniciamos Apache
     sudo systemctl restart apache2
