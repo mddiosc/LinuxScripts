@@ -17,7 +17,7 @@ sleep 3
 #           contrasenya : Contraseña generada automáticamente que es asignada al usuario
 #
 # Comandos Utilizados:
-#           echo - Despliega una línea de textl
+#           echo - Despliega una línea de texto
 #           read - lee una linea desde stdin y la asigna a la variable especificada.
 #               Sintaxis utilizada: read -p "prompt" NAME
 #               -p Despliega el prompt indicado por la cadena entre comillas
@@ -30,7 +30,22 @@ sleep 3
 #               selecciona todas las lineas proporcionadas por CAT excepto aquellas que contengan VALOR
 #           sed - Editor en linea (stream) para filtrar y transformar texto. Utilizado para realizar
 #               transformaciones de texto básicas a partir de una entrada.
-#               Sintaxis utilizada: sed -i "s<DELIMITADOR>Cadena a sustituir (RegEX)<DELIMITADOR> Nu"      
+#               Sintaxis utilizada: sed -i "s<DELIMITADOR>Cadena a sustituir (RegEX)<DELIMITADOR> Nueva cadena/g" NOMBREFICHERO
+#                   -i - realiza las modificaciones en el mismo fichero NOMBREFICHERO
+#                   <DELIMITADOR> Delimitador a utilizar para el comando sed. El deliimitador por defecto es /, pero es posible
+#                               que sea necesario cambiarlo cuando alguna de las cadenas contiene el caracter "/"
+#                               En los casos en los que ha sido necesario sustituirlo, se ha utilizado un "="  
+#                   NOMBREFICHERO: fichero sobre el que se realizarán los cambios.  
+#               Sintaxis utilizada: sed -i "ni <CADENA DE TEXTO>" NOMBREFICHERO
+#                    -i - Realiza las modificaciones en el mismo fichero NOMBREFICHERO
+#                    "ni" inserta una linea completa en la linea n
+#                   <CADENA DE TEXTO> : Cadena de texto a insertar en la posicion especificada en el fichero NOMBREFICHERO.
+#                
+#           chpsswd : Utilizado para cambiar la contraseña del usuario.
+#           openssl rand : Utilizado para generar una contraseña aleatoria de 8 caracteres que será asignada al usuario.
+#           a2ensite : (comando de Apache 2). Permite habilitar un host virtual a partir de un fichero de configuracion
+#                      copiado en el directorio /etc/apache2/sites-available
+#           systemctl - Permite controlar el servicio apache. Utilizado para reiniciar apache tras el cambio de configuración.
 #
 ##########################################################################################
 
