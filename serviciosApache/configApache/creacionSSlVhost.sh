@@ -1,5 +1,7 @@
 export DIRBASE=$PWD
 echo $DIRBASE
+echo "Validando Usuario"
+sudo echo "Usuario Validado"
 #########################################################################################
 #
 # Configuracion de un host virtual SSL de apache2 server  a partir de una plantilla 
@@ -81,13 +83,13 @@ function prepararEntorno(){
     sudo a2query -m ssl > /devl/null 2> /dev/null
     if [ $? <> 0 ] 
     then
-        a2enmod ssl
+        sudo a2enmod ssl
     fi
 }
 function  activaDominio(){
     # Copiamos el fichero de configuracion generado al directorio de sitios habilitados de apache (sites enabled)
     sudo cp $DIRBASE/CONF/${nombreDominio}-SSL.conf /etc/apache2/sites-available
-    a2ensite ${nombreDominio}-SSL
+    sudo a2ensite ${nombreDominio}-SSL
 
     # Reiniciamos Apache
     sudo systemctl restart apache2
