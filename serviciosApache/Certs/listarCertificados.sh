@@ -31,15 +31,22 @@ if [ $? -eq 0 ]
     for certificado in ${certificados}
     do
         fichero=${certificado}
-        dominio=`openssl x509 -in $certificado -text -noout | grep Subject | grep CN | cut -d"," -f 3 | cut -d"=" -f 2`
-        desde=`openssl x509 -in $certificado -text -noout | grep Before | cut -d":" -f 2,3,4`
-        expiracion=`openssl x509 -in $certificado -text -noout | grep After | cut -d":" -f 2,3,4`
+        # La linea de Subject contiene por ejemplo:
+        #Subject: C = ES, O = Test 1, CN = www.test1.com, emailAddress = mail@test1.com, L = Palma de Mallorca, ST = Baleares
+        # con cut obtenemos el 3er campo delimitado por comas,(CN = www.test1.com) y luego lo pasamos por cut de nuevo para obtener
+        # el segundo campo delimitado por '=' (www.test.com)
+        dominio=`openssl x509 -in ${certificado} -text -noout | grep Subject | grep CN | cut -d"," -f 3 | cut -d"=" -f 2`
+        #Procedemos igual que con el dominio, utilizando el 4 campo correspondiente al email.
+        email=`openssl x509 -in ${certificado} -text -noout | grep Subject | grep CN | cut -d"," -f 4 | cut -d"=" -f 2`
+        desde=`openssl x509 -in ${certificado} -text -noout | grep Before | cut -d":" -f 2,3,4`
+        expiracion=`openssl x509 -in ${certificado} -text -noout | grep After | cut -d":" -f 2,3,4`
         echo "========================================================================================================="
-        echo "Fichero: "$fichero
+        echo "Fichero: "${fichero}
         echo "_________________________________________________________________________________________________________"      
-        echo "Dominio: "$dominio
-        echo "Válido desde: "$desde
-        echo "Válido hasta: "$expiracion
+        echo "Dominio:      "${dominio}
+        echo "Mail:         "${email}
+        echo "Válido desde: "${desde}
+        echo "Válido hasta: "${expiracion}
         echo "========================================================================================================="
         echo " "
         echo " "
