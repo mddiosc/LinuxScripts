@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Copyright (C) 2018 - 2019 Lmartin
 # 
 # Este archivo es parte de la instalación y configuración 
@@ -10,13 +10,32 @@
 # Github:   https://github.com/maded79/LinuxServidorWeb
 # Archivo: apache2.sh
 
+source ./LAMP/function.sh
 
 # Instalacion de las herramientas necesarias para la creacion
 # de un servidor apache2.
 
-sudo apt-get install ufw
-sudo apt-get install apache2
-sudo apt-get install -y openssh-server
+try=$(listo "ufw")
+if [[ $try -eq "True" ]]
+    then
+    echo instalado
+    else
+    sudo apt-get install ufw
+fi
+try=$(listo "apache2")
+if [[ $try -eq "True" ]]
+    then
+    echo instalado
+    else
+    sudo apt-get install -y apache2
+fi
+try=$(listo "openssh-server")
+if [[ $try -eq "True" ]]
+    then
+    echo instalado
+    else
+    sudo apt-get install -y openssh-server
+fi
 
 # Activamos el Firewall instalado anteriormente.
 
@@ -56,4 +75,4 @@ sudo a2dissite 000-default.conf
 
 sudo systemctl restart apache2
 
-sh ./mysql-server.sh
+sh ./LAMP/mysql-server.sh
