@@ -90,7 +90,8 @@ function prepararEntorno(){
     ##########################################################################################
     # Esta funcion realiza los cambios necesarios a nivel sistema operativo.
     ##########################################################################################
-
+    # Verificamos si el usuario existe
+    
     # Generamos la contraseña para el usuario con 8 caracteres de longitud:
     contrasenya=`openssl rand -base64 6`
 
