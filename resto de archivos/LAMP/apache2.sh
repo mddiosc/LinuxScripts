@@ -15,22 +15,22 @@ source ./LAMP/function.sh
 # Instalacion de las herramientas necesarias para la creacion
 # de un servidor apache2.
 
-try=$(listo "ufw")
-if [[ $try -eq "True" ]]
+listo ufw
+if [[ $ins -eq True ]]
     then
     echo instalado
     else
     sudo apt-get install ufw
 fi
-try=$(listo "apache2")
-if [[ $try -eq "True" ]]
+listo apache2
+if [[ $ins -eq True ]]
     then
     echo instalado
     else
     sudo apt-get install -y apache2
 fi
-try=$(listo "openssh-server")
-if [[ $try -eq "True" ]]
+listo openssh-server
+if [[ $ins -eq True ]]
     then
     echo instalado
     else
@@ -46,33 +46,47 @@ sudo ufw enable
 # Usando la opción -p de tal manera que se creen los 
 # directorios padres necesarios.
 
-sudo mkdir -p /var/www/ejemplo.com/html
+function vhost(){
 
-# Asigna el usuario propietario del directorio, 
-# mediante la variable de entorno $USER:
+    sudo mkdir -p /var/www/ejemplo.com/html
 
-sudo chown -R $USER:$USER /var/www/ejemplo.com/html
+    # Asigna el usuario propietario del directorio, 
+    # mediante la variable de entorno $USER:
 
-# Los permisos de tus directorios raíz para la web no se 
-# modifican a menos que cambies el valor de unmask. 
-# Sin embargo podemos usar el siguiente comando:
+    sudo chown -R $USER:$USER /var/www/ejemplo.com/html
 
-sudo chown -R 755 /var/www/ejemplo.com/html
+    # Los permisos de tus directorios raíz para la web no se 
+    # modifican a menos que cambies el valor de unmask. 
+    # Sin embargo podemos usar el siguiente comando:
 
-#
+    sudo chown -R 755 /var/www/ejemplo.com/html
 
-sudo echo -e "<html> \n <head> \n <meta charset='UTF-8'> \n <title>¡Bienvenido a Ejemplo.com&#33;</title> \n </head> \n <body> \n <h1>¡El proceso ha sido exitoso&#33; ¡El bloque de servidor ejemplo.com se encuentra en funcionamiento&#33;</h1> \n </body> \n </html>" > /var/www/ejemplo.com/html/index.html
+    #
 
-sudo echo -e "<VirtualHost *:80> \n ServerAdmin admin@ejemplo.com \n ServerName ejemplo.com \n ServerAlias www.ejemplo.com \n DocumentRoot /var/www/ejemplo.com/html \n ErrorLog ${APACHE_LOG_DIR}/error.log \n CustomLog ${APACHE_LOG_DIR}/access.log combined \n </VirtualHost>" > /etc/apache2/sites-available/ejemplo.com.conf
+    sudo echo -e "<html> \n <head> \n <meta charset='UTF-8'> \n <title>¡Bienvenido a Ejemplo.com&#33;</title> \n </head> \n <body> \n <h1>¡El proceso ha sido exitoso&#33; ¡El bloque de servidor ejemplo.com se encuentra en funcionamiento&#33;</h1> \n </body> \n </html>" > /var/www/ejemplo.com/html/index.html
 
-sudo systemctl reload apache2
+    sudo echo -e "<VirtualHost *:80> \n ServerAdmin admin@ejemplo.com \n ServerName ejemplo.com \n ServerAlias www.ejemplo.com \n DocumentRoot /var/www/ejemplo.com/html \n ErrorLog ${APACHE_LOG_DIR}/error.log \n CustomLog ${APACHE_LOG_DIR}/access.log combined \n </VirtualHost>" > /etc/apache2/sites-available/ejemplo.com.conf
 
-sudo a2ensite ejemplo.com.conf
+    sudo systemctl reload apache2
 
-sudo systemctl reload apache2
+    sudo a2ensite ejemplo.com.conf
 
-sudo a2dissite 000-default.conf
+    sudo systemctl reload apache2
 
-sudo systemctl restart apache2
+    sudo a2dissite 000-default.conf
 
-sh ./LAMP/mysql-server.sh
+    sudo systemctl restart apache2
+
+}
+
+read -p "Quieres realizar la instalacion de un Virtual Host ( SI | NO )" respuesta
+
+case $respuesta in
+    s|SI|si|y|yes|YES)
+        vhost
+        source ./LAMP/mysql-server.sh
+        ;;
+    n|NO|no)
+        source ./LAMP/mysql-server.sh
+        ;;
+esac

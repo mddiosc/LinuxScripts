@@ -18,8 +18,12 @@ function FECHA(){
     date +%x
 }
 
+function inicio_programa(){
+    echo -e "Iniciado `FECHA`" >> REGISTRO/registro.txt
+}
+
 function añadir_fecha(){
-    echo -e "Iniciado: `FECHA` `HORA`" >> REGISTRO/registro.txt
+    echo -e "`HORA` " >> REGISTRO/registro.txt
 }
 
 function is_error(){
@@ -46,12 +50,10 @@ function _log(){
     is_error $?; añadir_fecha; _reg $*;
 }
 
-
-
 function listo(){
     ins=$(dpkg -s $1 | grep Status)
     unset opc
-    if [[ $ins != "Status: install ok installed" ]]
+    if [[ $ins == "Status: install ok installed" ]]
     then
         opc=True
     else

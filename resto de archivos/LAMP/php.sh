@@ -11,7 +11,7 @@
 # Archivo: php.sh
 
 
-sudo apt install php libapache2-mod-php php-mysql
+sudo apt install php libapache2-mod-php php-mysql php-pear
 
 sudo echo -e "<IfModule mod_dir.c> \n DirectoryIndex index.php index.cgi index.pl index.html index.xhtml inde$ \n </IfModule> \n # vim: syntax=apache ts=4 sw=4 sts=4 sr noet" > /etc/apache2/mods-enabled/dir.conf
 
