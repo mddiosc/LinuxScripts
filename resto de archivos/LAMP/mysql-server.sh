@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Copyright (C) 2018 - 2019 Lmartin
 # 
 # Este archivo es parte de la instalación y configuración 
@@ -11,5 +11,7 @@
 # Archivo: mysql-server.sh
 
 sudo apt install mysql-server
+
+
 
 sudo mysql_secure_installation
