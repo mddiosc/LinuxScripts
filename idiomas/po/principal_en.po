@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 2.0.6\n"
+
+msgid "idioma"
+msgstr "Choose the language to be used"
+
+msgid "es"
+msgstr "Spanish"
+
+msgid "en"
+msgstr "English"
+
+msgid "seleccion"
+msgstr "You Selected "
+
+msgid "menup"
+msgstr "Main Menu"
+
+msgid "instalacion"
+msgstr "Install"
+
+msgid "confmysql"
+msgstr "MySQL Configuration"
+
+msgid "vhosts"
+msgstr "SSL & Virtual Hosts Configuration"
+
+msgid "dbcrear"
+msgstr "Create Database"
+
+msgid "dbusrcrear"
+msgstr "Create Database User"
+
+msgid "gencert"
+msgstr "Generate SSL Certificate"
+
+msgid "vhostconf"
+msgstr "Virtual Host Configuration "
+
+msgid "salir"
+msgstr "Quit"
+
+msgid "menuopt"
+msgstr "Select an option: "
+
+msgid "validausuario"
+msgstr "Please validate your user to continue"
+
+msgid "usuariovalidado"
+msgstr "User Validated"
+
+msgid "errorvalidausuario"
+msgstr "An error has ocurred validating your user. It is not possible to continue"
