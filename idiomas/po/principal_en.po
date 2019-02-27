@@ -44,6 +44,9 @@ msgstr "Create Database User"
 msgid "gencert"
 msgstr "Generate SSL Certificate"
 
+msgid "listacerts"
+msgstr "List Issued Certificates"
+
 msgid "vhostconf"
 msgstr "Virtual Host Configuration "
 
@@ -61,3 +64,24 @@ msgstr "User Validated"
 
 msgid "errorvalidausuario"
 msgstr "An error has ocurred validating your user. It is not possible to continue"
+
+msgid "fichero"
+msgstr "File: "
+
+msgid "dominio"
+msgstr "Domain: "
+
+msgid "mail"
+msgstr "e-Mail: "
+
+msgid "desde"
+msgstr "Valid from: "
+
+msgid "hasta"
+msgstr "Valid until: "
+
+msgid "presionartecla"
+msgstr " Press any key to continue"
+
+msgid "noencontrado"
+msgstr "No certificate files found in the CERT directory"

@@ -37,8 +37,9 @@ echo
 printf "${VERDE}`i18n_muestra vhosts`${NC}"
 echo 
 echo "6.- `i18n_muestra gencert`"
-echo "7.- `i18n_muestra vhostconf` (No-SSL)"
-echo "8.- `i18n_muestra vhostconf` (SSL)"
+echo "7.- `i18n_muestra listacerts`"
+echo "8.- `i18n_muestra vhostconf` (No-SSL)"
+echo "9.- `i18n_muestra vhostconf` (SSL)"
 echo
 printf "${ROJO}10. `i18n_muestra salir`${NC}"
 echo 
@@ -68,11 +69,15 @@ case ${opcion} in
         echo "Generar Certificado Seguro"
         sleep 3
         ;;
-    7)
+    7) 
+        echo "istado de Certificados Emitidos"
+        source $BASEDIR/Certs/listarCertificados.sh
+        ;;       
+    8)
         echo "Configurar Virtual Host"
         sleep 3
         ;;
-    8) 
+    9) 
         echo "Configurar Virtual Host SSL"
         sleep 3
         ;;

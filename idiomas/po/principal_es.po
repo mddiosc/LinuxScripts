@@ -44,6 +44,9 @@ msgstr "Crear Usuario de Base de Datos"
 msgid "gencert"
 msgstr "Generación Certificado SSL"
 
+msgid "listacerts"
+msgstr "Listado de certificados emitidos"
+
 msgid "vhostconf"
 msgstr "Configuración Host Virtual "
 
@@ -61,3 +64,24 @@ msgstr "Usuario Validado"
 
 msgid "errorvalidausuario"
 msgstr "Ha ocurrido un error validando el usuario. No es posible continuar"
+
+msgid "fichero"
+msgstr "Fichero: "
+
+msgid "dominio"
+msgstr "Dominio: "
+
+msgid "mail"
+msgstr "e-Mail:"
+
+msgid "desde"
+msgstr "Válido desde: "
+
+msgid "hasta"
+msgstr "Válido hasta: "
+
+msgid "presionartecla"
+msgstr " Presione cualquier tecla para continuar"
+
+msgid "noencontrado"
+msgstr "No se encontraron certificados emitidos en la carpeta CERT"
