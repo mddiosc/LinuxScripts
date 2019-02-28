@@ -60,3 +60,14 @@ function listo(){
         opc=False
     fi
 }
+
+
+function expecting(){
+    i=1
+    cantidad=`wc -l "DB-Idiomas/prueba.txt" | cut -c -2`
+    while [ $i -lt $cantidad ]
+    do
+        echo `nl -b a DB-Idiomas/prueba.txt | grep $i` | cut -c 3-
+        let "i++"
+    done
+}
