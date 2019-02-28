@@ -35,6 +35,25 @@ clear
 # Definimos el directorio base donde esta instalada la aplicacion
 export BASEDIR=$PWD
 
+function registro(){
+    if [ $# -eq 2 ]
+    then
+        modulo=$1
+        mensaje=$2
+    elif [ $# -eq 1 ]
+    then
+        modulo="NoDefinido"
+        mensaje=$1
+    else 
+        modulo="NoDefinido"
+        mensaje="Error no especificado"
+    fi
+  
+    fechaFichero=`date +%Y-%m-%d`
+    timestamp=`date +"%Y-%m-%d %H:%M:%S"`
+    echo "${timestamp} - [${modulo}] - ${mensaje}" >> ${BASEDIR}/logs/registro-${fechaFichero}.log
+}
+
 # Preparamos definicion de colores, para colorizar mensajes utilizando printf
 export ROJO='\033[0;31m' # Color Rojo, fondo negro
 export VERDE='\033[0;32m' # Color Verde, fondo negro

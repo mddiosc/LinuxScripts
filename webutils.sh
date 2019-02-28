@@ -17,6 +17,7 @@
 # Llamada al script que prepara el entorno de usuario para la ejecución de la herramienta.
 source preparaEntorno.sh
 lenguaje=`echo ${LANGUAGE} | cut -d"_" -f 1 | tr a-z A-Z`
+registro "menu" "Acceso al Menu Principal." 
 while true 
 do
 clear
@@ -66,11 +67,10 @@ case ${opcion} in
         sleep 3
         ;;
     6) 
-        echo "Generar Certificado Seguro"
+        source $BASEDIR/Certs/creacionCertificado.sh
         sleep 3
         ;;
     7) 
-        echo "istado de Certificados Emitidos"
         source $BASEDIR/Certs/listarCertificados.sh
         ;;       
     8)

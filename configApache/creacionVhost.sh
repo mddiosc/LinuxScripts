@@ -1,8 +1,5 @@
 export DIRBASE=$PWD
 clear
-echo "Validando Usuario"
-sudo echo "Usuario Validado"
-sleep 3
 #########################################################################################
 #
 # Configuracion de un host virtual de apache2 server  a partir de una plantilla 

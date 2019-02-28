@@ -1,4 +1,5 @@
 export MIBASEDIR=$BASEDIR/Certs
+clear
 ##############################################################################################################################################
 #
 # Listado de certificados generados
@@ -21,7 +22,9 @@ export MIBASEDIR=$BASEDIR/Certs
 
 # Se obtiene una lista (ls) de los ficheros que se encuentran en la carpeta CERT (donde se almacenan los certificados)
 # Se desvía la salida del comando ls para que redirija los errores a /dev/null y que no aparezcan en la consola
+numcerts=0
 certificados=`ls $MIBASEDIR/CERT/*.crt 2> /dev/null`
+
 
 # Se valida el estado devuelto por el ultimo comando (ls). Si es diferente de 0, indicará que no se ha encontrado ningun
 # fichero. Si es igual a 0 se obtendra la inforamación de cada certificado, almacenandola en las variables
@@ -61,11 +64,19 @@ if [ $? -eq 0 ]
         printf "=========================================================================================================\n"
         echo " "
         echo " "
+        numcerts=$(( numcerts+1))
     done
+    registro "listaCertificados" "Se han encontrado "${numcerts}" certificados creados"
 else
 # Si no se encuentran ficheros de certificado.
-    echo "`i18n_muestra noencontrado`"
+    printf  "${ROJO}`i18n_muestra noencontrado`${NC}\n"
+    echo
+    registro "listaCertificados" "No se han encontrado certificados"
 fi
 
+# Solicitamos al usuario presionar cualquier tecla para continuar. Para ello utilizamos read -n1 -s
+# -n1 : lee un solo caracter
+# -s : no muestra en pantalla el caracter introducido (silent)
+echo
 echo `i18n_muestra presionartecla`
 read -n1 -s

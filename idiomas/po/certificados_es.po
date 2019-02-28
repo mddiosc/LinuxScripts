@@ -1,0 +1,24 @@
+msgid "pais"
+msgstr "Pais"
+
+msgid "estado"
+msgstr "Estado"
+
+msgid "ciudad"
+msgstr "Ciudad"
+
+msgid "org"
+msgstr "Organización"
+
+msgid "dominio"
+msgstr "Nombre de Dominio"
+
+msgid "mail"
+msgstr "Direccion email"
+
+msgid "tituloCert"
+msgstr "Generación de certificados seguros"
+
+msgid "introduceDatos"
+msgstr "Por favor introduzca los datos requeridos"
+

@@ -1,5 +1,3 @@
-export DIRBASE=$PWD
-echo $DIRBASE
 #########################################################################################
 #
 # Creacion de un CSR a partir de una plantilla con los datos introducidos por el usuario
@@ -24,16 +22,16 @@ function obtenerdatos() {
     # para el certificado.
     #
     pais="ES"
-    read -e -p "País [ES]: " -i "ES" pais
-    read -p "Estado: " estado
-    read -p "Ciudad: " ciudad
-    read -p "Organización: " organizacion
-    read -p "Nombre de dominio : " fqdn
-    read -p "Direccion email: " email
+    read -e -p "`i18n_muestra pais` [ES]: " -i "ES" pais
+    read -p "`i18n_muestra estado`: " estado
+    read -p "`i18n_muestra ciudad`: " ciudad
+    read -p "`i18n_muestra org`: " organizacion
+    read -p "`i18n_muestra dominio`: " fqdn
+    read -p "`i18n_muestra mail`: " email
 }
 
 function preparaCSRConf (){
-    cp $DIRBASE/PLT/csr.cnf $DIRBASE/CNF/$fqdn.csr.cnf
+    cp $MIBASEDIR/PLT/csr.cnf $MIBASEDIR/CNF/$fqdn.csr.cnf
     ##########################################################################################
     # Preparación del fichero de configuracion que será utilizado para generar el CSR
     ##########################################################################################
@@ -47,22 +45,22 @@ function preparaCSRConf (){
     # de variables.
     
     # Sustituimos el FQDN de la plantilla (DOMINIO), por el FQDN especificado por el usuario
-    sed -i "s/DOMINIO/${fqdn}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/DOMINIO/${fqdn}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 
     # Sustituimos el pais de la plantilla (PAIS), por el pais especificado por el usuario
-    sed -i "s/PAIS/${pais}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/PAIS/${pais}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 
     # Sustituimos el estado (Comunidad Autonoma) de la plantilla (ESTADO), por la organización especificado por el usuario
-    sed -i "s/ESTADO/${estado}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/ESTADO/${estado}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 
     # Sustituimos el la ciudad de la plantilla (CIUDAD), por la ciudad especificado por el usuario
-    sed -i "s/CIUDAD/${ciudad}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/CIUDAD/${ciudad}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 
     # Sustituimos la organizacion de la plantilla (ORGANIZACION), por la organización especificado por el usuario
-    sed -i "s/ORGANIZACION/${organizacion}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/ORGANIZACION/${organizacion}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 
     # Sustituimos el mail de contacto  de la plantilla (EMAIL), por el email  especificado por el usuario
-    sed -i "s/EMAIL/${email}/g" $DIRBASE/CNF/$fqdn.csr.cnf
+    sed -i "s/EMAIL/${email}/g" $MIBASEDIR/CNF/$fqdn.csr.cnf
 }
 
 function generaKey_CSR(){
@@ -71,14 +69,13 @@ function generaKey_CSR(){
     ##########################################################################################
 
     # Utilizando el comando openssl para generar la key y el CSR
-   openssl req -new -config $DIRBASE/CNF/${fqdn}.csr.cnf -keyout $DIRBASE/KEY/${fqdn}.key -out $DIRBASE/CSR/${fqdn}.csr
+   openssl req -new -config $MIBASEDIR/CNF/${fqdn}.csr.cnf -keyout $MIBASEDIR/KEY/${fqdn}.key -out $MIBASEDIR/CSR/${fqdn}.csr
 
     # Protegemos la key cambiando los permisos de forma que solo quien lo genera pueda acceder o modificarla
-    chmod 0600 $DIRBASE/KEY/${fqdn}.key
+    chmod 0600 $MIBASEDIR/KEY/${fqdn}.key
 }
 
-obtenerdatos
-preparaCSRConf
-generaKey_CSR
-
-
+function generarCertificado(){
+    # Generación del certificado autofirmado a partir de la clave privada y el CSR previamente generados.
+    openssl x509 -req -days 365 -in ${MIBASEDIR}/CSR/${fqdn}.csr -signkey ${MIBASEDIR}/KEY/${fqdn}.key -out ${MIBASEDIR}/CERT/${fqdn}.crt
+}

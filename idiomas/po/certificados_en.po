@@ -1,0 +1,23 @@
+msgid "pais"
+msgstr "Country"
+
+msgid "estado"
+msgstr "State"
+
+msgid "ciudad"
+msgstr "Location"
+
+msgid "org"
+msgstr "Organization"
+
+msgid "dominio"
+msgstr "Domain Name"
+
+msgid "mail"
+msgstr "E-mail Address"
+
+msgid "tituloCert"
+msgstr "SSL Certificate Generation"
+
+msgid "introduceDatos"
+msgstr "Please enter required information"
