@@ -1,0 +1,16 @@
+expect: ing
+New password:
+Re-enter new password:
+Do you wish to continue with the password provided?\(Press y\|Y for Yes, any other key for No\) :
+Remove anonymous users?\(Press y\|Y for Yes, any other key for No\) :
+Disallow root login remotely?\(Press y\|Y for Yes, any other key for No\) :
+Remove test database and access to it?\(Press y\|Y for Yes, any other key for No\) :
+Reload privilege tables now?\(Press y\|Y for Yes, any other key for No\) :
+eof
+send: ing
+'$NEW_MYSQL_PASSWORD'"\r"
+'$NEW_MYSQL_PASSWORD'"\r"
+"y\r"
+"y\r"
+"y\r"
+"y\r"
