@@ -68,7 +68,6 @@ case ${opcion} in
         ;;
     6) 
         source $BASEDIR/Certs/creacionCertificado.sh
-        sleep 3
         ;;
     7) 
         source $BASEDIR/Certs/listarCertificados.sh

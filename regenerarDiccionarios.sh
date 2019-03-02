@@ -5,3 +5,6 @@ msgfmt -o $BASEDIR/idiomas/es/LC_MESSAGES/principal.mo $BASEDIR/idiomas/po/princ
 
 msgfmt -o $BASEDIR/idiomas/en/LC_MESSAGES/certificados.mo $BASEDIR/idiomas/po/certificados_en.po
 msgfmt -o $BASEDIR/idiomas/es/LC_MESSAGES/certificados.mo $BASEDIR/idiomas/po/certificados_es.po
+
+msgfmt -o $BASEDIR/idiomas/en/LC_MESSAGES/apacheconf.mo $BASEDIR/idiomas/po/apacheconf_en.po
+msgfmt -o $BASEDIR/idiomas/es/LC_MESSAGES/apacheconf.mo $BASEDIR/idiomas/po/apacheconf_es.po

@@ -1,0 +1,11 @@
+msgid "domainname"
+msgstr "Nombre de Dominio"
+
+msgid "adminmail"
+msgstr "E-mail del administrador"
+
+msgid "sftpusu"
+msgstr "Usuario SFTP"
+
+msgid "welcome"
+msgstr "Bienvenido al dominio"

@@ -1,3 +1,4 @@
+export TEXTDOMAIN=apacheconf
 export DIRBASE=$PWD
 clear
 #########################################################################################
