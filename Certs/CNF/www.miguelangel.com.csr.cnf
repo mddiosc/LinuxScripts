@@ -1,0 +1,41 @@
+#
+# https://apfelboymchen.net/gnu/notes/openssl%20multidomain%20with%20config%20files.html
+# https://www.switch.ch/pki/manage/request/csr-openssl/
+# https://medium.com/curiouscaloo/how-to-generate-a-wildcard-cert-csr-with-a-config-file-for-openssl-8a6613ab342f
+# 
+# https://www.ibm.com/support/knowledgecenter/en/SSB23S_1.1.0.13/gtps7/cfgcert.html
+# https://jamielinux.com/docs/openssl-certificate-authority/appendix/root-configuration-file.html
+# https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+# https://www.sslshopper.com/article-most-common-openssl-commands.html
+# https://stackoverflow.com/questions/4294689/how-to-generate-an-openssl-key-using-a-passphrase-from-the-command-line
+#
+# Plantilla de configuración de OpenSSL para la creacion de Peticiones de Firma de Certificados (CSR)
+# openssl req -new -config myserver.cnf -keyout myserver.key -out myserver.csr
+
+
+# Datos de configuración del certificado.
+#
+# default_bits Bits que se utilizaran para la generación de la clave (2048). Aunque se podrian utilizar claves de 4096 esto ha demostrado
+# que induce una carga importante de CPU en el cliente a la hora de establecer la conexion.
+#
+ 
+[ req ]
+days = 365
+default_bits = 2048
+default_md = sha512
+prompt = no
+encrypt_key = no
+distinguished_name = dn
+req_extensions = req_ext
+
+[ dn ]
+countryName = ES
+organizationName = Miguel Angel
+commonName = www.miguelangel.com
+emailAddress = miguel@miguelangel.com
+localityName = Palma
+stateOrProvinceName = Baleares
+
+[ req_ext ]
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign

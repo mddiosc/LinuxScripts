@@ -25,5 +25,17 @@ msgstr "The user's password is"
 msgid "validadominio"
 msgstr "You can check your new vhost at"
 
+msgid "dominioconfigurado"
+msgstr "Virtual Host has been configured successfully"
+
 msgid "tituloVhost"
 msgstr "Apache VHost Configuration (No-SSL)"
+
+msgid "mensajessl"
+msgstr "Domain virtual host and certificate must have been created previously"
+
+msgid "errnocert"
+msgstr "Certificate has not been generated. Please process it and retry"
+
+msgid "error"
+msgstr "There was an error processing the SSL host. Please check and retry"

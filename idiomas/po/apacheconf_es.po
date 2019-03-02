@@ -25,5 +25,17 @@ msgstr "La contraseña es"
 msgid "validadominio"
 msgstr "Puede validar su dominio conectandose a"
 
+msgid "dominioconfigurado"
+msgstr "Se ha configurado correctamente su virtual host para el dominio"
+
 msgid "tituloVhost"
 msgstr "Configuracion de un host virtual en apache (No-SSL)"
+
+msgid "mensajessl"
+msgstr "El virtual host y el certificado deberán estar creados previamente"
+
+msgid "errnocert"
+msgstr "El certificado no existe. Por favor cree el certificado y vuelva a intentarlo"
+
+msgid "error"
+msgstr "Se ha producido un error, por favor verifique e intentelo de nuevo"

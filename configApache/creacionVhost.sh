@@ -63,7 +63,7 @@ function obtenerDatosDominio() {
     nombreDominio=`i18n_lee domainname`
     adminEmail=`i18n_lee adminmail`
     usuario=`i18n_lee sftpusu`
-    registro "ApacheVirtualHost" "se han obtenido correctamente los datos para el dominio ${nombreDominio}"
+    registro "ApacheVirtualHost" "Se han obtenido correctamente los datos para el dominio ${nombreDominio}"
 }
 
 function preparaPlantilla(){
@@ -143,6 +143,7 @@ function  activaDominio(){
 
     # Informamos al usuario del resultado del proceso.
     printf "\n\n"
+    printf "`i18n_muestra dominioconfigurado`: ${VERDE}${nombreDominio}${NC}\n"
     printf "`i18n_muestra usuarioacceso` ${VERDE}${usuario}${NC}\n"
     printf "`i18n_muestra passacceso` ${VERDE}${contrasenya}${NC}\n"
     printf "`i18n_muestra validadominio`${VERDE} http://${nombreDominio}${NC}\n"

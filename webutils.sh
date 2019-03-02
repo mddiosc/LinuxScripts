@@ -76,8 +76,7 @@ case ${opcion} in
         source $BASEDIR/configApache/creacionVhost.sh
         ;;
     9) 
-        echo "Configurar Virtual Host SSL"
-        sleep 3
+        source $BASEDIR/configApache/creacionSSLVhost.sh
         ;;
     10)
         echo "Gracias por utilizar la aplicacion"
