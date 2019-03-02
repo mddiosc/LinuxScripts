@@ -1,6 +1,5 @@
 export TEXTDOMAIN=apacheconf
-export DIRBASE=$PWD
-clear
+export MIBASEDIR=$BASEDIR/configApache
 #########################################################################################
 #
 # Configuracion de un host virtual de apache2 server  a partir de una plantilla 
@@ -47,19 +46,24 @@ clear
 #
 ##########################################################################################
 
+
 function obtenerDatosDominio() {
     ##########################################################################################
     # Esta funcion obtiene los datos del dominio a configurar en Apache.
     ##########################################################################################
     #
     clear
-    echo "Por favor introduzca los datos que se solicitan a continuación"
-    echo "Serán utilizados para generar el nuevo dominio en apache"
+    printf "${VERDE}***************************************************************************************${NC}\n"
+    printf "${VERDE} `i18n_muestra tituloVhost`${NC}\n"
+    printf "${VERDE}***************************************************************************************${NC}\n\n"
+    echo `i18n_muestra datosdom1`
+    echo `i18n_muestra datosdom2`
     echo 
     echo 
-    read -p "Nombre de Dominio: "  nombreDominio
-    read -p "Email del administrador: " adminEmail
-    read -p "Usuario SFTP: " usuario
+    nombreDominio=`i18n_lee domainname`
+    adminEmail=`i18n_lee adminmail`
+    usuario=`i18n_lee sftpusu`
+    registro "ApacheVirtualHost" "se han obtenido correctamente los datos para el dominio ${nombreDominio}"
 }
 
 function preparaPlantilla(){
@@ -68,20 +72,22 @@ function preparaPlantilla(){
     ##########################################################################################
     #
     # Copiamos la plantilla base que sera editada e instalada en apache.
-    cat $DIRBASE/PLT/000-default.conf | grep -v "#" > $DIRBASE/CONF/${nombreDominio}.conf
+    cat $MIBASEDIR/PLT/000-default.conf | grep -v "#" > $MIBASEDIR/CONF/${nombreDominio}.conf
 
     # Configuramos el ServerName del dominio de Apache en la plantilla
-    sed -i "s/ServerName.*/ServerName ${nombreDominio}/g" $DIRBASE/CONF/${nombreDominio}.conf
+    sed -i "s/ServerName.*/ServerName ${nombreDominio}/g" $MIBASEDIR/CONF/${nombreDominio}.conf
 
     # Configuramos el mail del Administrador del dominio de Apache
-    sed -i "s/ServerAdmin.*/ServerAdmin ${adminEmail}/g" $DIRBASE/CONF/${nombreDominio}.conf
+    sed -i "s/ServerAdmin.*/ServerAdmin ${adminEmail}/g" $MIBASEDIR/CONF/${nombreDominio}.conf
 
     # Configuramos el directorio de logs de apache (acceso y errores)
-    sed -i "s=ErrorLog.*=ErrorLog /var/log/apache2/${nombreDominio}/error.log=g" $DIRBASE/CONF/${nombreDominio}.conf
-    sed -i "s=CustomLog.*=CustomLog /var/log/apache2/${nombreDominio}/access.log combined=g" $DIRBASE/CONF/${nombreDominio}.conf
+    sed -i "s=ErrorLog.*=ErrorLog /var/log/apache2/${nombreDominio}/error.log=g" $MIBASEDIR/CONF/${nombreDominio}.conf
+    sed -i "s=CustomLog.*=CustomLog /var/log/apache2/${nombreDominio}/access.log combined=g" $MIBASEDIR/CONF/${nombreDominio}.conf
 
     # Configuramos el directorio raiz (DocumentRoot) en la plantilla.
-    sed -i "s=DocumentRoot.*=DocumentRoot /var/www/${nombreDominio}=g" $DIRBASE/CONF/${nombreDominio}.conf
+    sed -i "s=DocumentRoot.*=DocumentRoot /var/www/${nombreDominio}=g" $MIBASEDIR/CONF/${nombreDominio}.conf
+
+    registro "ApacheVirtualHost" "Fichero de configuración para el dominio ${nombreDominio} generada correctamente."
 }
 
 function prepararEntorno(){
@@ -98,6 +104,8 @@ function prepararEntorno(){
     # cambiamos la contraseña del usuario segun la que ha sido generada anteriormente
     echo ${usuario}:${contrasenya} | sudo chpasswd 
 
+    registro "ApacheVirtualHost" "El usuario ${usuario} con password ${contrasenya} para el dominio ${nombreDominio} ha sido creado correctamente"
+
     # creamos el directorio raiz del dominio
     sudo mkdir -p /var/www/${nombreDominio}
     sudo mkdir -p /var/log/apache2/${nombreDominio}
@@ -106,7 +114,7 @@ function prepararEntorno(){
     sudo chown -R ${usuario}:${usuario} /var/www/${nombreDominio}
 
     # Creamos un fichero index.html como pagina de inicio para el dominio configurado
-    echo "<html><head></head><body><h1> Bienvenido al dominio ${nombreDominio}</h1></body></html>" > $DIRBASE/CONF/index.html
+    echo "<html><head></head><body><h1> `i18n_muestra welcome` ${nombreDominio}</h1></body></html>" > $MIBASEDIR/CONF/index.html
 
 
     # creamos un enlace simbólico en el home del usuario que apunte al DocumentRoot de su dominio
@@ -114,15 +122,18 @@ function prepararEntorno(){
     sudo chown -R ${usuario}:${usuario} /home/${usuario}/${nombreDominio}
 
     # Copiamos el indice de muestra en el enlace del document root del dominio.
-    sudo cp $DIRBASE/CONF/index.html /home/${usuario}/${nombreDominio}/index.html
+    sudo cp $MIBASEDIR/CONF/index.html /home/${usuario}/${nombreDominio}/index.html
+
+    registro "ApacheVirtualHost" "Se ha configurado correctamente el dominio ${nombreDominio}"
+
 
 }
 function  activaDominio(){
     # Copiamos el fichero de configuracion generado al directorio de sitios disponibles de apache (sites available)
-    sudo cp $DIRBASE/CONF/${nombreDominio}.conf /etc/apache2/sites-available
+    sudo cp $MIBASEDIR/CONF/${nombreDominio}.conf /etc/apache2/sites-available
 
     # A continuacion activamos el sitio en apache
-    sudo a2ensite ${nombreDominio}
+    sudo a2ensite ${nombreDominio} > /dev/null 2> /dev/null
 
     # Reiniciamos Apache
     sudo systemctl restart apache2
@@ -131,11 +142,17 @@ function  activaDominio(){
     sudo sed -i "2i127.0.0.1  ${nombreDominio}" /etc/hosts
 
     # Informamos al usuario del resultado del proceso.
-    echo "El usuario de acceso es "${usuario}
-    echo "Su contraseña es "${contrasenya}
-    echo "Puede validar su dominio conectandose a http://"${nombreDominio}
+    printf "\n\n"
+    printf "`i18n_muestra usuarioacceso` ${VERDE}${usuario}${NC}\n"
+    printf "`i18n_muestra passacceso` ${VERDE}${contrasenya}${NC}\n"
+    printf "`i18n_muestra validadominio`${VERDE} http://${nombreDominio}${NC}\n"
+    registro "ApacheVirtualHost" "Configuración de apache completa para el dominio ${nombreDominio} (http://${nombreDominio})"
 }
 obtenerDatosDominio
 preparaPlantilla
 prepararEntorno
 activaDominio
+export TEXTDOMAIN=principal
+echo
+echo `i18n_muestra presionartecla`
+read -n1 -s

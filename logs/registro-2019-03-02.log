@@ -1,0 +1,37 @@
+2019-03-02 09:43:16 - [menu] - Acceso al Menu Principal.
+2019-03-02 09:53:57 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.prueba2.com
+2019-03-02 09:53:57 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.prueba2.com generada correctamente.
+2019-03-02 09:53:57 - [ApacheVirtualHost] - El usuario prueba2 con password r9Tw0sFI para el dominio www.prueba2.com ha sido creado correctamente
+2019-03-02 09:53:57 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.prueba2.com
+2019-03-02 09:53:58 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.prueba2.com (http://www.prueba2.com)
+2019-03-02 10:00:25 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:00:56 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:01:42 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:02:03 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.bonnie.com
+2019-03-02 10:02:03 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.bonnie.com generada correctamente.
+2019-03-02 10:02:03 - [ApacheVirtualHost] - El usuario bonnie con password kfebIUVG para el dominio www.bonnie.com ha sido creado correctamente
+2019-03-02 10:02:03 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.bonnie.com
+2019-03-02 10:02:04 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.bonnie.com (http://www.bonnie.com)
+2019-03-02 10:09:11 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.jack.com
+2019-03-02 10:09:11 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.jack.com generada correctamente.
+2019-03-02 10:09:11 - [ApacheVirtualHost] - El usuario jack con password +45w23T7 para el dominio www.jack.com ha sido creado correctamente
+2019-03-02 10:09:11 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.jack.com
+2019-03-02 10:09:11 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.jack.com (http://www.jack.com)
+2019-03-02 10:09:35 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.jack.com
+2019-03-02 10:09:35 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.jack.com generada correctamente.
+2019-03-02 10:09:35 - [ApacheVirtualHost] - El usuario jack2 con password Ml8zHIJG para el dominio www.jack.com ha sido creado correctamente
+2019-03-02 10:09:35 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.jack.com
+2019-03-02 10:09:36 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.jack.com (http://www.jack.com)
+2019-03-02 10:53:51 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:54:01 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:55:04 - [menu] - Acceso al Menu Principal.
+2019-03-02 10:55:21 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.jack3.com
+2019-03-02 10:55:21 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.jack3.com generada correctamente.
+2019-03-02 10:55:21 - [ApacheVirtualHost] - El usuario jack3 con password HxYcwd3V para el dominio www.jack3.com ha sido creado correctamente
+2019-03-02 10:55:21 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.jack3.com
+2019-03-02 10:55:21 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.jack3.com (http://www.jack3.com)
+2019-03-02 10:57:06 - [ApacheVirtualHost] - se han obtenido correctamente los datos para el dominio www.jack4.com
+2019-03-02 10:57:06 - [ApacheVirtualHost] - Fichero de configuración para el dominio www.jack4.com generada correctamente.
+2019-03-02 10:57:06 - [ApacheVirtualHost] - El usuario jack4 con password zertQLdP para el dominio www.jack4.com ha sido creado correctamente
+2019-03-02 10:57:06 - [ApacheVirtualHost] - Se ha configurado correctamente el dominio www.jack4.com
+2019-03-02 10:57:07 - [ApacheVirtualHost] - Configuración de apache completa para el dominio www.jack4.com (http://www.jack4.com)

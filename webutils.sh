@@ -73,8 +73,7 @@ case ${opcion} in
         source $BASEDIR/Certs/listarCertificados.sh
         ;;       
     8)
-        echo "Configurar Virtual Host"
-        sleep 3
+        source $BASEDIR/configApache/creacionVhost.sh
         ;;
     9) 
         echo "Configurar Virtual Host SSL"

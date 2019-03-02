@@ -9,3 +9,21 @@ msgstr "SFTP User"
 
 msgid "welcome"
 msgstr "Welcome to the domain"
+
+msgid "datosdom1"
+msgstr "Please enter the requested data"
+
+msgid  "datosdom2"
+msgstr "This data will be used for creating your Apache Virtual Host"
+
+msgid "usuarioacceso"
+msgstr "The user created is"
+
+msgid "passacceso"
+msgstr "The user's password is"
+
+msgid "validadominio"
+msgstr "You can check your new vhost at"
+
+msgid "tituloVhost"
+msgstr "Apache VHost Configuration (No-SSL)"
