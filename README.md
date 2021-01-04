@@ -2,8 +2,6 @@
 
 Creado por:
 
-* Luis Martin
-* Miguel Ángel Riera
 * Miguel Angel de Dios
 
 ## Descripción
